@@ -9,15 +9,6 @@ export default function InformationGathering() {
     const [buid, setBuid] = useState(""); 
     const [emailAddress, setEmailAddress] = useState(""); 
 
-    function storeInformation(){
-
-
-
-
-
-    }
-
-
     return (
         <main className="flex flex-col items-center min-h-screen w-[95vw] mx-8 pt-28 bg-blue-100">
           <div className="w-full max-w-lg shadow-xl bg-white rounded-3xl ">
@@ -95,15 +86,19 @@ export default function InformationGathering() {
                 />
                 </div>
               </div>
-
-              <div className="text-center">
-                <button
-                    onClick={storeInformation}
-                    className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
-                >
-                    Next Step
-                </button>
+            
+              <div className="text-center"> 
+                {firstName !== "" && lastName !== "" && buid !== "" && emailAddress !== ""? (
+                    <Link
+                        href={`/camera-usage-consent-form`}
+                        className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
+                    >
+                        Next Step
+                    </Link>
+                    ) : <p><b>All fields are required to be filled in before proceeding to next step</b></p>
+                } 
               </div>
+              <br/>
             </div>
           </div>
         </main>
