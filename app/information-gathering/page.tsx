@@ -71,7 +71,7 @@ export default function InformationGathering() {
                 <input
                     id="buid"
                     placeholder="please input your BUID number"
-                    value={lastName}
+                    value={buid}
                     className="border-2 w-full p-2 rounded-lg"
                     onChange={(e) => {
                         setBuid(e.target.value);
@@ -87,7 +87,7 @@ export default function InformationGathering() {
                 <input
                     id="emailAddress"
                     placeholder="please input your email address"
-                    value={lastName}
+                    value={emailAddress}
                     className="border-2 w-full p-2 rounded-lg"
                     onChange={(e) => {
                         setEmailAddress(e.target.value);
