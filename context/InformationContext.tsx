@@ -1,28 +1,18 @@
-// "use client";
-
-// import { createContext } from "react";
-// import { Info } from "../Info";
-
-// type InformationContextType = {
-//   context: Info;
-//   setContext: React.Dispatch<React.SetStateAction<Info>>;
-// };
-
-// const InformationContext = createContext<InformationContextType | null>(null);
-
-// export default InformationContext;
-
-// app/context/InformationContext.tsx
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React from "react"; 
+import { useState, createContext, useContext } from "react";
 import { Info } from "../Info"; 
 
+// Use React Context with useState, source: https://medium.com/comsystoreply/how-to-use-react-context-with-usestate-c8ae4fe72fb9
+
+// type of InformationContext 
 type InformationContextType = {
   context: Info;
   setContext: React.Dispatch<React.SetStateAction<Info>>;
 };
 
+// initial default value of InformationContext 
 const defaultInfo: Info = {
   firstName: "",
   lastName: "",
@@ -32,7 +22,8 @@ const defaultInfo: Info = {
 
 const InformationContext = createContext<InformationContextType | null>(null);
 
-export const InformationProvider = ({ children }: { children: ReactNode }) => {
+// pass the default information value into the children 
+export const InformationProvider = ({ children }: { children: React.ReactNode; }) => {
   const [info, setInfo] = useState<Info>(defaultInfo);
 
   return (
@@ -42,10 +33,11 @@ export const InformationProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useInformation = () => {
+// retrieve the value of InformationContext, while avoiding potential error  
+export const useInformation = () => { 
   const context = useContext(InformationContext);
   if (!context) {
-    throw new Error("useInformation must be used within an InformationProvider");
+    throw new Error("Error! Wrong context! ");
   }
   return context;
 };
