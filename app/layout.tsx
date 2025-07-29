@@ -3,6 +3,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import React from "react";
+import { InformationProvider } from "../context/InformationContext";
+
 
 export const metadata: Metadata = {
     title: "CS392 Attendance App",
@@ -16,9 +18,11 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
             <body
                 className="antialiased min-h-screen bg-gradient-to-b from-red-50 to-red-100"
             >
+                <InformationProvider>
                 <Header/>
                 {children}
                 <Footer/>
+                </InformationProvider>
             </body>
         </html>
     );
