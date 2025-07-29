@@ -1,3 +1,7 @@
+//last updated by ZL(lzhx@bu.edu), added 'use client'
+
+'use client'
+
 import Link from "next/link";
 
 export default function Camera() {
