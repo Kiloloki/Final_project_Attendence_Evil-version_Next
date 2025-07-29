@@ -2,12 +2,29 @@
 
 import Link from "next/link";
 import {useState} from "react";
+import { redirect } from 'next/navigation'; 
+
+import {useInformation} from "../../context/InformationContext"; 
 
 export default function InformationGathering() {
-    const [firstName, setFirstName] = useState(""); 
-    const [lastName, setLastName] = useState(""); 
-    const [buid, setBuid] = useState(""); 
-    const [emailAddress, setEmailAddress] = useState(""); 
+    const { context, setContext } = useInformation(); 
+
+    const [firstName, setFirstName] = useState(context.firstName); 
+    const [lastName, setLastName] = useState(context.lastName); 
+    const [buid, setBuid] = useState(context.buid); 
+    const [emailAddress, setEmailAddress] = useState(context.emailAddress); 
+
+    function storeInfo() { 
+        setContext({
+            firstName,
+            lastName,
+            buid,
+            emailAddress,
+        }); 
+        console.log("storinggggggggggggggggg"); 
+
+        redirect(`/camera-usage-consent-form`); 
+    }
 
     return (
         <main className="flex flex-col items-center min-h-screen w-[95vw] mx-8 pt-28 bg-blue-100">
@@ -89,12 +106,21 @@ export default function InformationGathering() {
             
               <div className="text-center"> 
                 {firstName !== "" && lastName !== "" && buid !== "" && emailAddress !== ""? (
-                    <Link
-                        href={`/camera-usage-consent-form`}
+                    // <Link
+                    //     href={`/camera-usage-consent-form`}
+                    //     className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
+                    // >
+                    //     Next Step
+                    // </Link> 
+
+                    <button
+                        onClick={storeInfo}
                         className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
                     >
                         Next Step
-                    </Link>
+                    </button>
+
+                    
                     ) : <p><b>All fields are required to be filled in before proceeding to next step</b></p>
                 } 
               </div>
