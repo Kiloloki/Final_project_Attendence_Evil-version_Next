@@ -13,7 +13,5 @@ export default async function getIPCheck() {
   console.log("attendance IP: " + attendanceIP);
   if (dataIP) {
     return dataIP == attendanceIP;
-  } else {
-    return undefined;
   }
 }
