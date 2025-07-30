@@ -14,6 +14,7 @@ type InformationContextType = {
 
 // initial default value of InformationContext 
 const defaultInfo: Info = {
+  atCorrectIP: false, 
   firstName: "",
   lastName: "",
   buid: "",

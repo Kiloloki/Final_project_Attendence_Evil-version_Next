@@ -3,7 +3,8 @@
 'use client'
 
 import Link from "next/link";
-import getIPCheck from "@/lib/getIPCheck";
+import getIPCheck from "@/lib/getIPCheck"; 
+import { useInformation } from "../context/InformationContext";
 
 export default function IPCheck() {
     const matchIP = getIPCheck();
@@ -49,8 +50,18 @@ export default function IPCheck() {
             </div>
         )
 
-    }
+    } 
 
+    const { context, setContext } = useInformation();
+    setContext({
+        atCorrectIP: true,
+        firstName: "",
+        lastName: "",
+        buid: "",
+        emailAddress: "",
+    });
+
+    console.log(context); 
     return (
         <div className="w-full max-w-lg shadow-xl bg-white rounded-3xl text-center">
             <div className="text-center">
@@ -70,3 +81,39 @@ export default function IPCheck() {
         </div>
     );
 }
+
+
+
+
+
+
+// // created by ZL(lzhx@bu.edu)
+// // returns whether current IP match env IP (boolean | undefined)
+
+// "use client";
+
+// import getIP from "@/lib/getIP";
+// import { useInformation } from "../context/InformationContext";
+
+// export default function getIPCheck() {
+//   const dataIP = getIP();
+//   let attendenceIP = process.env.ATTENDENCE_IP;
+//   if (dataIP) {
+//     if (dataIP.ip === attendenceIP) {
+//       setContext({
+//         atCorrectIP: false,
+//         firstName: "",
+//         lastName: "",
+//         buid: "",
+//         emailAddress: "",
+//       });
+//       return true;
+//     } else {
+//       setContext(false);
+//       return false;
+//     }
+//   } else {
+//     setContext(false);
+//     return undefined;
+//   }
+// }
