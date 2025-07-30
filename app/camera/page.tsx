@@ -1,79 +1,79 @@
-'use client';
+// 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+// import React, { useEffect, useRef, useState } from 'react';
 
-export default function CameraPage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+// export default function CameraPage() {
+//   const videoRef = useRef<HTMLVideoElement>(null);
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
+//   const [photo, setPhoto] = useState<string | null>(null);
+//   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
-  useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then((stream) => {
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      })
-      .catch((err) => console.error('Camera error:', err));
-  }, []);
+//   useEffect(() => {
+//     navigator.mediaDevices.getUserMedia({ video: true })
+//       .then((stream) => {
+//         if (videoRef.current) {
+//           videoRef.current.srcObject = stream;
+//         }
+//       })
+//       .catch((err) => console.error('Camera error:', err));
+//   }, []);
 
-  const takePhoto = () => {
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    if (video && canvas) {
-      const context = canvas.getContext('2d');
-      if (context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0);
-        const dataUrl = canvas.toDataURL('image/jpeg');
-        setPhoto(dataUrl);
-      }
-    }
-  };
+//   const takePhoto = () => {
+//     const video = videoRef.current;
+//     const canvas = canvasRef.current;
+//     if (video && canvas) {
+//       const context = canvas.getContext('2d');
+//       if (context) {
+//         canvas.width = video.videoWidth;
+//         canvas.height = video.videoHeight;
+//         context.drawImage(video, 0, 0);
+//         const dataUrl = canvas.toDataURL('image/jpeg');
+//         setPhoto(dataUrl);
+//       }
+//     }
+//   };
 
-  const uploadPhoto = async () => {
-    if (!photo) return;
+//   const uploadPhoto = async () => {
+//     if (!photo) return;
 
-    const blob = await (await fetch(photo)).blob();
-    const formData = new FormData();
-    formData.append('image', blob, 'photo.jpg');
+//     const blob = await (await fetch(photo)).blob();
+//     const formData = new FormData();
+//     formData.append('image', blob, 'photo.jpg');
 
-    setUploadStatus("Uploading...");
+//     setUploadStatus("Uploading...");
 
-    try {
-      const res = await fetch('http://localhost:8000/api/verify', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await res.json();
-      setUploadStatus(`Server response: ${data.message}`);
-    } catch (err) {
-      setUploadStatus('Upload failed.');
-      console.error(err);
-    }
-  };
+//     try {
+//       const res = await fetch('http://localhost:8000/api/verify', {
+//         method: 'POST',
+//         body: formData,
+//       });
+//       const data = await res.json();
+//       setUploadStatus(`Server response: ${data.message}`);
+//     } catch (err) {
+//       setUploadStatus('Upload failed.');
+//       console.error(err);
+//     }
+//   };
 
-  return (
-    <main className="flex flex-col items-center gap-4 p-6">
-      <video ref={videoRef} autoPlay className="w-full max-w-md rounded-lg" />
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+//   return (
+//     <main className="flex flex-col items-center gap-4 p-6">
+//       <video ref={videoRef} autoPlay className="w-full max-w-md rounded-lg" />
+//       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <button onClick={takePhoto} className="bg-blue-600 text-white px-4 py-2 rounded">
-        Take Photo
-      </button>
+//       <button onClick={takePhoto} className="bg-blue-600 text-white px-4 py-2 rounded">
+//         Take Photo
+//       </button>
 
-      {photo && (
-        <>
-          <img src={photo} alt="Captured" className="w-full max-w-md rounded shadow" />
-          <button onClick={uploadPhoto} className="bg-green-600 text-white px-4 py-2 rounded">
-            Upload to Server
-          </button>
-        </>
-      )}
+//       {photo && (
+//         <>
+//           <img src={photo} alt="Captured" className="w-full max-w-md rounded shadow" />
+//           <button onClick={uploadPhoto} className="bg-green-600 text-white px-4 py-2 rounded">
+//             Upload to Server
+//           </button>
+//         </>
+//       )}
 
-      {uploadStatus && <p>{uploadStatus}</p>}
-    </main>
-  );
-}
+//       {uploadStatus && <p>{uploadStatus}</p>}
+//     </main>
+//   );
+// }
