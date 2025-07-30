@@ -7,13 +7,11 @@ import getIP from "@/lib/getIP";
 
 export default function getIPCheck() {
     const dataIP = getIP();
-    let attendenceIP = process.env.ATTENDENCE_IP;
+    const attendanceIP = process.env.ATTENDANCE_IP;
+    console.log(dataIP?.ip);
+    console.log(attendanceIP);
     if (dataIP) {
-        if (dataIP.ip === attendenceIP) {
-            return true;
-        } else {
-            return false;
-        }
+        return (dataIP.ip == attendanceIP);
     } else {
         return undefined;
     }

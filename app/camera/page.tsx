@@ -15,10 +15,7 @@ export default function Camera() {
                         {/* DON'T FORGET TO ADD SOME DESCRIPTIONS HERE */}
                     </p>
             </div>
-
             <div>
-
-                
               <div className="text-center">
                 <Link
                     href={`/attendance-recorded-confirmation`}
