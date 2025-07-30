@@ -4,26 +4,26 @@
 
 import { useEffect, useState } from "react";
 import { IPInfo } from "@/interfaces/IPInfo";
+import getIP from "@/lib/getIP";
 
-export default function getIP() {
-    const [currentIP, setCurrentIP] = useState<IPInfo>();
+export default function getIPInfo() {
+    const [currentIPInfo, setCurrentIPInfo] = useState<IPInfo>();
 
     useEffect(() => {
         async function fetchIP(): Promise<void> {
             // fetch User's current IP from IPify
-            const responseIP = await fetch("https://api.ipify.org/?format=json");
-            const { ip } = await responseIP.json();
+            const ip = getIP();
             // fetch the IP's information from IPInfo
             const ipInfoUrl = `https://ipinfo.io/${ip}/geo`
             const responseInfo = await fetch(ipInfoUrl);
             const ipInfo = await responseInfo.json();
-            setCurrentIP(ipInfo)
+            setCurrentIPInfo(ipInfo)
         }
 
         fetchIP()
-            .then(() => console.log("Fetched IP and IP info Successfully."))
+            .then(() => console.log("Fetched IP info Successfully."))
             .catch(err => console.log(err));
     }, []);
-    console.log(currentIP);
-    return currentIP;
+
+    return currentIPInfo;
 }

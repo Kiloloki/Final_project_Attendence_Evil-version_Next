@@ -92,11 +92,11 @@ export default function IPCheck() {
 
 // "use client";
 
-// import getIP from "@/lib/getIP";
+// import getIPInfo from "@/lib/getIPInfo";
 // import { useInformation } from "../context/InformationContext";
 
 // export default function getIPCheck() {
-//   const dataIP = getIP();
+//   const dataIP = getIPInfo();
 //   let attendenceIP = process.env.ATTENDENCE_IP;
 //   if (dataIP) {
 //     if (dataIP.ip === attendenceIP) {

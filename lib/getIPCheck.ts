@@ -3,16 +3,14 @@
 
 'use client'
 
-import getAttendenceIP from "@/lib/getAttendenceIP";
+import getAttendenceIP from "@/lib/getAttendanceIP";
 import getIP from "@/lib/getIP";
 
 export default async function getIPCheck() {
     const dataIP = getIP();
     const attendanceIP = await getAttendenceIP();
-    console.log(dataIP?.ip);
-    console.log(attendanceIP);
     if (dataIP) {
-        return (dataIP.ip == attendanceIP);
+        return (dataIP == attendanceIP);
     } else {
         return undefined;
     }
