@@ -4,7 +4,7 @@
 
 import Link from "next/link";
 import getIPCheck from "@/lib/getIPCheck"; 
-import { useInformation } from "../context/InformationContext";
+import { useInformation } from "@/context/InformationContext";
 
 export default function IPCheck() {
     const matchIP = getIPCheck();

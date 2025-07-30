@@ -3,11 +3,12 @@
 
 'use client'
 
+import getAttendenceIP from "@/lib/getAttendenceIP";
 import getIP from "@/lib/getIP";
 
-export default function getIPCheck() {
+export default async function getIPCheck() {
     const dataIP = getIP();
-    const attendanceIP = process.env.ATTENDANCE_IP;
+    const attendanceIP = await getAttendenceIP();
     console.log(dataIP?.ip);
     console.log(attendanceIP);
     if (dataIP) {
