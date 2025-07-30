@@ -7,7 +7,7 @@ export default function CameraUsageConsentForm() {
             <main className="flex flex-col items-center justify-center p-4">
                 <div className="w-full max-w-6xl shadow-xl bg-white p-4 rounded-2xl">
                     <header className="text-center">
-                        <h2 className="text-3xl font-bold">Camera Usage Confirmation</h2>
+                        <h2 className="text-3xl font-bold">Camera Usage Consent Form</h2>
                         <p className="text-neutral-500">
                             This page explains how and why we use your camera and collect your information.
                         </p>
