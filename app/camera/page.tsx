@@ -50,8 +50,9 @@ export default function CameraPage() {
       const data = await res.json();
       setUploadStatus(`Server response: ${data.message}`);
     } catch (err) {
-      setUploadStatus('Upload failed.');
-      console.error(err);
+      setUploadStatus('Upload failed， please try again.'); // Fix: Corrected the error message
+      console.error('Upload error:', err);
+      console.log(err); // Log the error for debugging
     }
   };
 
