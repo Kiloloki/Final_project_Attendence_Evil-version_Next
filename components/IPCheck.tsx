@@ -5,9 +5,34 @@
 import Link from "next/link";
 import getIPCheck from "@/lib/getIPCheck"; 
 import { useInformation } from "@/context/InformationContext";
+import { useEffect, useState } from "react";
 
 export default function IPCheck() {
-    const matchIP = getIPCheck();
+    // const matchIP = getIPCheck();
+
+    const [matchIP, setMatchIP] = useState<boolean | undefined>(undefined);
+    const { context, setContext } = useInformation();
+
+    useEffect(() => {
+        async function fetchIPMatch() {
+            console.log("waiting"); 
+            const result = await getIPCheck(); 
+            setMatchIP(result); 
+            console.log("settingggggggggg"); 
+            if (result === true) {
+                setContext({
+                    atCorrectIP: true,
+                    firstName: "",
+                    lastName: "",
+                    buid: "",
+                    emailAddress: "",
+                });
+            }
+        }
+        console.log("callinggggggg"); 
+        fetchIPMatch();
+    }, []);
+
     // returns whether current IP match env IP (boolean | undefined)
     console.log(matchIP);
 
@@ -52,16 +77,6 @@ export default function IPCheck() {
 
     } 
 
-    const { context, setContext } = useInformation();
-    setContext({
-        atCorrectIP: true,
-        firstName: "",
-        lastName: "",
-        buid: "",
-        emailAddress: "",
-    });
-
-    console.log(context); 
     return (
         <div className="w-full max-w-lg shadow-xl bg-white rounded-3xl text-center">
             <div className="text-center">
