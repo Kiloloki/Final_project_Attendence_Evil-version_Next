@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'; 
+import Link from "next/link"; 
 
 export default function CameraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -74,7 +75,14 @@ export default function CameraPage() {
         </>
       )}
 
-      {uploadStatus && <p>{uploadStatus}</p>}
+      {uploadStatus && <p>{uploadStatus}</p>} 
+
+      <Link
+        href={`/camera-usage-consent-form`}
+        className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
+        >
+            Go Back
+      </Link>
     </main>
   );
 }
