@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react'; 
-import Link from "next/link"; 
+import React, { useEffect, useRef, useState } from 'react';
+import Link from "next/link";
 
 export default function CameraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -35,25 +35,33 @@ export default function CameraPage() {
   };
 
   const uploadPhoto = async () => {
-    if (!photo) return;
+    if (!photo) {
+      setUploadStatus("Please take a photo first.");
+      return;
+    }
 
     const blob = await (await fetch(photo)).blob();
     const formData = new FormData();
-    formData.append('image', blob, 'photo.jpg');
+    formData.append('input_image', blob, 'photo.jpg');
 
     setUploadStatus("Uploading...");
 
     try {
-      const res = await fetch('http://localhost:8000/api/verify', {
+      const res = await fetch('https://face-service-143797183460.us-east1.run.app/compare/', {
         method: 'POST',
         body: formData,
       });
       const data = await res.json();
-      setUploadStatus(`Server response: ${data.message}`);
+      if (data.success) {
+        setUploadStatus(
+          `Matched file: ${data.matched_file || "None"}, Similarity: ${data.similarity?.toFixed(4)}, Match: ${data.match ? "Yes" : "No"}`
+        );
+      } else {
+        setUploadStatus(data.reason || 'Face not detected.');
+      }
     } catch (err) {
-      setUploadStatus('Upload failed, please try again.'); // Fix: Corrected the error message
+      setUploadStatus('Upload failed, please try again.');
       console.error('Upload error:', err);
-      console.log(err); // Log the error for debugging
     }
   };
 
@@ -62,26 +70,32 @@ export default function CameraPage() {
       <video ref={videoRef} autoPlay className="w-full max-w-md rounded-lg" />
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <button onClick={takePhoto} className="bg-blue-600 text-white px-4 py-2 rounded">
+      <button
+        onClick={takePhoto}
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
         Take Photo
       </button>
 
       {photo && (
         <>
           <img src={photo} alt="Captured" className="w-full max-w-md rounded shadow" />
-          <button onClick={uploadPhoto} className="bg-green-600 text-white px-4 py-2 rounded">
-            Upload to Server
+          <button
+            onClick={uploadPhoto}
+            className="bg-green-600 text-white px-4 py-2 rounded"
+          >
+            Upload to Cloud Run & Compare
           </button>
         </>
       )}
 
-      {uploadStatus && <p>{uploadStatus}</p>} 
+      {uploadStatus && <p>{uploadStatus}</p>}
 
       <Link
         href={`/camera-usage-consent-form`}
-        className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
-        >
-            Go Back
+        className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-5 py-2.5 my-5"
+      >
+        Go Back
       </Link>
     </main>
   );
