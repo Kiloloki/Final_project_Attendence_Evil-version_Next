@@ -1,4 +1,5 @@
-// // created by ZL(lzhx@bu.edu), to check if ip is fetched and is correct
+// created by ZL(lzhx@bu.edu), to check if ip is fetched and is correct
+// last updated by ZL, to fix the repidity of useEffect function and that ip is not awaited to be fetched
 
 'use client'
 
@@ -110,3 +111,48 @@ export default function IPCheck() {
         </div>
     );
 }
+
+/*
+import getIP from "@/lib/getIP";
+
+export default function IPCheck() {
+    const [matchIP, setMatchIP] = useState<boolean | undefined>(undefined);
+    const {setContext} = useInformation();
+
+    useEffect(() => {
+        async function fetchIPMatch() {
+            try {
+                const dataIP = await getIP();
+                const attendanceIP = await getAttendanceIP();
+
+                console.log("Current IP:", dataIP);
+                console.log("Attendance IP:", attendanceIP);
+
+                if (!dataIP || !attendanceIP) {
+                    setMatchIP(undefined);
+                    return;
+                }
+
+                const isMatch = dataIP === attendanceIP;
+                setMatchIP(isMatch);
+
+                if (isMatch) {
+                    setContext({
+                        atCorrectIP: true,
+                        firstName: "",
+                        lastName: "",
+                        buid: "",
+                        emailAddress: "",
+                    });
+                }
+            } catch (error) {
+                console.error("IP match error:", error);
+                setMatchIP(undefined);
+            }
+        }
+
+        fetchIPMatch();
+    }, [setContext]);
+
+    //Conditional rendering:
+ */
