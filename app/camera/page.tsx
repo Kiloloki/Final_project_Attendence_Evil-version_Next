@@ -176,7 +176,6 @@ export default function CameraPage() {
           `Reference Image: ${data.db_image || "None"}, Similarity: ${data.similarity?.toFixed(4)}, Match: ${data.match ? "Yes ✅" : "No ❌"}`
         );
         if (data.match) {
-        // 跳转到结果页，这里推荐用 setTimeout 让用户能看到状态
         setTimeout(() => {
           redirect(`/attendance-recorded-confirmation`);
         }, 15000);
