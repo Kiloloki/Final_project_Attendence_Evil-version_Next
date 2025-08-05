@@ -113,7 +113,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from "next/link";
 import { redirect } from 'next/navigation'; 
-import { useInformation } from "../../context/InformationContext"; 
+import { useInformation } from "@/context/InformationContext"; 
+import createNewAttendanceRecord from "@/lib/createNewAttendanceRecord"
 
 export default function CameraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -176,6 +177,18 @@ export default function CameraPage() {
           `Reference Image: ${data.db_image || "None"}, Similarity: ${data.similarity?.toFixed(4)}, Match: ${data.match ? "Yes ✅" : "No ❌"}`
         );
         if (data.match) {
+
+          // resource: https://community.freshworks.dev/t/post-request-using-fetch-in-next-js/4726/2 
+          await fetch('/api/create-attendance-record', {
+            method: 'POST',
+            body: JSON.stringify({
+              firstName: context.firstName,
+              lastName: context.lastName,
+              buid: context.buid,
+              emailAddress: context.emailAddress,
+            })
+          }); 
+
         // 跳转到结果页，这里推荐用 setTimeout 让用户能看到状态
         setTimeout(() => {
           redirect(`/attendance-recorded-confirmation`);
@@ -215,6 +228,26 @@ export default function CameraPage() {
           </button>
         </>
       )}
+
+      {/* {photo && (
+        <>
+          <img src={photo} alt="Captured" className="w-full max-w-md rounded shadow" />
+          <form
+          onSubmit={async (event) => {
+            event.preventDefault(); 
+            createNewAttendanceRecord()
+                .catch((err) => console.log("This error occurred: " + err));;
+          }}
+        >
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded"
+          >
+            Upload & Face Verify
+          </button>
+        </form>
+        </>
+      )}  */}
 
       {uploadStatus && <p>{uploadStatus}</p>}
 

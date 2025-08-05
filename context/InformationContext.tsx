@@ -2,7 +2,7 @@
 
 import React from "react"; 
 import { useState, createContext, useContext } from "react";
-import { Info } from "../Info"; 
+import { Info } from "@/types/Info"; 
 
 // Use React Context with useState, source: https://medium.com/comsystoreply/how-to-use-react-context-with-usestate-c8ae4fe72fb9
 
