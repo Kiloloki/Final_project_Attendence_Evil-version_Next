@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Record } from "@/types/Record";
 import getCollection, { POSTS_COLLECTION } from "@/db";
 
-export default async function POST(req: Request) {
+export async function POST(req: Request) {
   console.log("Creating a new attendance record");
 
   try {
@@ -15,14 +15,9 @@ export default async function POST(req: Request) {
     };
 
     const postCollection = await getCollection(POSTS_COLLECTION);
-    const res = postCollection.insertOne({ ...record });
+    console.log("Collection is:", postCollection);
 
-    if (!res) {
-      return NextResponse.json(
-        { success: false, message: "DB insert failed" },
-        { status: 500 }
-      );
-    }
+    const res = await postCollection.insertOne({ ...record });
 
     return NextResponse.json({ success: true, record });
   } catch (err) {

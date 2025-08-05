@@ -175,7 +175,18 @@ export default function CameraPage() {
         setUploadStatus(
           `Reference Image: ${data.db_image || "None"}, Similarity: ${data.similarity?.toFixed(4)}, Match: ${data.match ? "Yes ✅" : "No ❌"}`
         );
-        if (data.match) {
+        if (data.match) { 
+          // create an attendance record of this student. Resource: https://community.freshworks.dev/t/post-request-using-fetch-in-next-js/4726/2 
+          await fetch('/api/create-attendance-record', {
+            method: 'POST',
+            body: JSON.stringify({
+              firstName: context.firstName,
+              lastName: context.lastName,
+              buid: context.buid,
+              emailAddress: context.emailAddress,
+            })
+          }); 
+
         // 跳转到结果页，这里推荐用 setTimeout 让用户能看到状态
         setTimeout(() => {
           redirect(`/attendance-recorded-confirmation`);
