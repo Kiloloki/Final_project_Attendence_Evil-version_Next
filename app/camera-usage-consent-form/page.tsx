@@ -22,14 +22,14 @@ export default function CameraUsageConsentForm() {
                     <h3 className="mb-4 text-xl font-semibold">Purpose of Camera Usage</h3>
                     <p> 
                         We ask to access your camera <b>only</b> to capture your image for the purpose of <b>recording class attendance</b>. 
-                        Your image may be processed using facial recognition techniques to match against previously submitted information. 
+                        Your image will be processed using facial recognition techniques to match against previously submitted information. 
                     </p>
 
                     <h3 className="mb-4 text-xl font-semibold">Where and How We Store Your Data</h3>
                     <ul>
                         <li>
                             <p> 
-                                Your information is securely stored in a protected database/server
+                                Your photo data will be <b>converted into a non-reversible vector (face embedding)</b> for matching, but the photo itself will <b>not</b> be stored anywhere
                             </p>
                         </li>
 
@@ -42,21 +42,6 @@ export default function CameraUsageConsentForm() {
                         <li>
                             <p> 
                                 Access is strictly limited to authorized staffs only
-                            </p>
-                        </li> 
-                    </ul>
-
-                    <h3 className="mb-4 text-xl font-semibold">How Long We Keep Your Data</h3>
-                    <ul>
-                        <li>
-                            <p> 
-                                Your data will be retained <b>until the end of the semester</b>, after which it will be deleted unless otherwise required
-                            </p>
-                        </li>
-
-                        <li>
-                            <p> 
-                                You may <b>request deletion at any time</b> by contacting us
                             </p>
                         </li> 
                     </ul>
