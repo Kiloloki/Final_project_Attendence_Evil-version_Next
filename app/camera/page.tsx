@@ -3,12 +3,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from "next/link";
 import { redirect } from 'next/navigation'; 
+import {useInformation} from "../../context/InformationContext"; 
 
 export default function CameraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [photo, setPhoto] = useState<string | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null); 
+
+  const { context, setContext } = useInformation(); 
 
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -44,6 +47,7 @@ export default function CameraPage() {
     const blob = await (await fetch(photo)).blob();
     const formData = new FormData();
     formData.append('input_image', blob, 'photo.jpg');
+    formData.append('buid', context.buid);
 
     setUploadStatus("Uploading...");
 
@@ -57,6 +61,7 @@ export default function CameraPage() {
         setUploadStatus(
           `Matched file: ${data.matched_file || "None"}, Similarity: ${data.similarity?.toFixed(4)}, Match: ${data.match ? "Yes" : "No"}`
         );
+        redirect(`/attemdance-recorded-confirmation`); 
       } else {
         setUploadStatus(data.reason || 'Face not detected.');
       }
