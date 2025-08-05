@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from "next/link";
+import { redirect } from 'next/navigation'; 
 
 export default function CameraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
