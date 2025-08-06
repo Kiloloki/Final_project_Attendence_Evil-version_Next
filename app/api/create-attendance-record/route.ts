@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { Record } from "@/types/Record";
 import getCollection, { POSTS_COLLECTION } from "@/db";
 
+// POST Route Handler. Resource: https://www.wisp.blog/blog/nextjs-14-app-router-get-and-post-examples-with-typescript
 export async function POST(req: Request) {
   console.log("Creating or updating an attendance record");
 
