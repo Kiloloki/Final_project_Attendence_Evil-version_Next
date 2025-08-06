@@ -16,9 +16,12 @@ export async function POST(req: Request) {
     };
 
     const postCollection = await getCollection(POSTS_COLLECTION);
-    const previousRecord = await postCollection.find({ buid: record.buid });
+    const previousRecord = await postCollection
+      .find({ buid: record.buid })
+      .toArray();
+    console.log("PREVIOUE RECORD: " + previousRecord);
 
-    if (previousRecord) {
+    if (previousRecord.length > 0) {
       // if there is previous record about this student, then increment its totalAttendance by 1
       // source: https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/
       const updated = await postCollection.findOneAndUpdate(
@@ -31,7 +34,6 @@ export async function POST(req: Request) {
 
       return NextResponse.json({ success: true, record: updated });
     } else {
-      // 如果是第一次签到，插入新记录
       const res = await postCollection.insertOne(record);
       console.log("Just Inserted a New Record: ");
 
