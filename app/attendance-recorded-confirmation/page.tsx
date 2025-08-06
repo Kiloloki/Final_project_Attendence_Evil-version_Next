@@ -1,4 +1,5 @@
-import Link from "next/link";
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The page that informs student that their attendance has been recordeed. 
 
 export default function AttendanceRecordedConfirmation() {
 

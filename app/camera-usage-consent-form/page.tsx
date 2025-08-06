@@ -1,3 +1,5 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The page that informs student about the usage of camera and ask for their consent. 
 import Link from "next/link";
 
 export default function CameraUsageConsentForm() {

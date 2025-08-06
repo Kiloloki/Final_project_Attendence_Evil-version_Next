@@ -1,20 +1,25 @@
+// Author: Emily Yang (eyang4@bu.edu), Xiaorui Wang (bella918@bu.edu)
+// Description: The page that gathers student's information. 
+
 'use client'
 
 import Link from "next/link";
 import {useState} from "react";
 import { redirect } from 'next/navigation'; 
 
-import {useInformation} from "../../context/InformationContext"; 
+import {useInformation} from "@/context/InformationContext"; 
 
+// ===== Created by Xiaorui Wang =====
 // Check if input BUID is valid (contains eight digits)
 const validBUID = (id: string) => /^[0-9]{8}$/.test(id);
 // Check if input BUEmailAdress is valid 
 const validBUEmailAddress = (user: string) => /^[a-zA-Z0-9._%+-]+$/.test(user);
-
+// ===== Created by Xiaorui Wang =====
 
 export default function InformationGathering() {
     const { context, setContext } = useInformation(); 
 
+    // if the dtudent doesnt pass the IP check, then remind them to go back and check IP 
     if (!context.atCorrectIP) {
         return (
             <main className="flex flex-col items-center min-h-screen w-[95vw] mx-8 pt-28 bg-blue-100">
@@ -23,7 +28,14 @@ export default function InformationGathering() {
                             <h2 className="text-3xl font-bold p-2">ID Information Gathering</h2>
                             <p className="text-neutral-500">
                                 Please first verify your IP address.  
-                            </p>
+                            </p>  
+                            <Link
+                                href={`/`}
+                                className="inline-block text-white bg-blue-700 hover:bg-sky-600 active:bg-sky-900 active:translate-y-[0.3vh] transform font-medium rounded-lg text-sm px-50 py-2.5 my-5"
+                            >
+                                Go Back
+                            </Link>
+
                     </div>
                 </div>
             </main>
@@ -38,6 +50,7 @@ export default function InformationGathering() {
     const [emailAddress, setEmailAddress] = useState(context.emailAddress.replace(/@bu\.edu$/, ""));
 
     function storeInfo() { 
+        // updates the global context (InformationContext) based on recieved informations  
         setContext({
             atCorrectIP: context.atCorrectIP, 
             firstName,
@@ -54,9 +67,12 @@ export default function InformationGathering() {
             emailAddress: `${emailAddress}@bu.edu`,
         })
 
+        // proceed to the camera-usage-consent-form page  
         redirect(`/camera-usage-consent-form`); 
     }
 
+
+    // ===== Created by Xiaorui Wang =====
     const isValid =
     firstName.trim() !== "" &&
     lastName.trim() !== "" &&
@@ -72,7 +88,9 @@ export default function InformationGathering() {
     } else if (!isValid) {
         errorMsg =
         "All fields are required to be filled in before proceeding to next step.";
-    }
+    } 
+    // ===== Created by Xiaorui Wang ===== 
+
 
     return (
         <main className="flex flex-col items-center min-h-screen w-[95vw] mx-8 pt-28 bg-blue-100">
@@ -138,8 +156,10 @@ export default function InformationGathering() {
                         value={buid}
                         className="border-2 border-l-0 w-full p-2 rounded-r-lg"
                         onChange={(e) => {
-                        // only allow numbers
+                        // ===== Created by Xiaorui Wang ===== 
+                        // only allow numbers 
                         const value = e.target.value.replace(/\D/g, "");
+                        // ===== Created by Xiaorui Wang ===== 
                         setBuid(value);
                         }}
                     />
@@ -165,6 +185,7 @@ export default function InformationGathering() {
               </div>
             
               <div className="text-center"> 
+                {/* Allow student to proceed to next only when all fields are filled in; otherwise show prompt message */}
                 {firstName !== "" && lastName !== "" && buid !== "" && emailAddress !== ""? (
 
                     <button

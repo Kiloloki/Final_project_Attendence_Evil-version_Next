@@ -1,3 +1,5 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The page that informs student about the usage of camera and ask for their consent. 
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";

@@ -1,3 +1,6 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The api that updates or create an attendance record.
+
 import { NextResponse } from "next/server";
 import { Record } from "@/types/Record";
 import getCollection, { POSTS_COLLECTION } from "@/db";
@@ -23,7 +26,7 @@ export async function POST(req: Request) {
 
     if (previousRecord.length > 0) {
       // if there is previous record about this student, then increment its totalAttendance by 1
-      // source: https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/
+      // resource: https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/
       const updated = await postCollection.findOneAndUpdate(
         { buid: record.buid },
         { $inc: { totalAttendance: 1 } },
@@ -32,15 +35,23 @@ export async function POST(req: Request) {
 
       console.log("Just Updated the Record: " + updated);
 
+      // Produce a response
+      // resource: https://nextjs.org/docs/app/api-reference/functions/next-response#json
       return NextResponse.json({ success: true, record: updated });
     } else {
+      // if there is no previous record about this student, then create a new attendance record
       const res = await postCollection.insertOne(record);
       console.log("Just Inserted a New Record: ");
 
+      // Produce a response
+      // resource: https://nextjs.org/docs/app/api-reference/functions/next-response#json
       return NextResponse.json({ success: true, record });
     }
   } catch (err) {
     console.error("Error:", err);
+
+    // Produce a response
+    // resource: https://nextjs.org/docs/app/api-reference/functions/next-response#json
     return NextResponse.json(
       { success: false, message: "Server Error" },
       { status: 500 }
