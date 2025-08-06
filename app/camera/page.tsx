@@ -1,3 +1,6 @@
+// Author: Xiaorui Wang (bella918@bu.edu), Emily Yang (eyang4@bu.edu) 
+// Description: The page that uses webcamera to gather the student's facial image and then send to backend for facial recognition. 
+
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -268,6 +271,9 @@ export default function CameraPage() {
         );
         
         if (data.match) { 
+          // ===== Created by Emily Yang ===== 
+          // store attendance record to MongoDB 
+          // Resource: https://community.freshworks.dev/t/post-request-using-fetch-in-next-js/4726/2 
           await fetch('/api/create-attendance-record', {
             method: 'POST',
             body: JSON.stringify({
@@ -277,6 +283,7 @@ export default function CameraPage() {
               emailAddress: context.emailAddress,
             })
           }); 
+          // ===== Created by Emily Yang =====
 
           setTimeout(() => {
             redirect(`/attendance-recorded-confirmation`);
