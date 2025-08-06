@@ -1,3 +1,6 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The footer.  
+
 import Link from "next/link"; 
 
 export default function Footer(){

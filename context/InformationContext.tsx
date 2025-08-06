@@ -1,3 +1,6 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: the global InformationContext that contains the student's information and IP status.  
+
 "use client";
 
 import React from "react"; 

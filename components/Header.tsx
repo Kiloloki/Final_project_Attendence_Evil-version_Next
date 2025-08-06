@@ -1,3 +1,6 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The header.  
+
 import Link from "next/link";
 
 export default function Header() {

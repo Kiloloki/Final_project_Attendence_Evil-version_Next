@@ -1,3 +1,6 @@
+// Author: Emily Yang (eyang4@bu.edu)
+// Description: The bd.ts for a connection to MongoDB.
+
 import { MongoClient, Db, Collection } from "mongodb";
 
 const MONGO_URI = process.env.MONGO_URI as string;
