@@ -5,5 +5,5 @@ export type Record = {
   lastName: string;
   buid: string;
   emailAddress: string;
-  //   attendanceTimes: IntegerType;
+  totalAttendance: IntegerType;
 };

@@ -3,7 +3,7 @@ import { Record } from "@/types/Record";
 import getCollection, { POSTS_COLLECTION } from "@/db";
 
 export async function POST(req: Request) {
-  console.log("Creating a new attendance record");
+  console.log("Creating or updating an attendance record");
 
   try {
     const body = await req.json();
@@ -12,14 +12,31 @@ export async function POST(req: Request) {
       lastName: body.lastName,
       buid: body.buid,
       emailAddress: body.emailAddress,
+      totalAttendance: 1,
     };
 
     const postCollection = await getCollection(POSTS_COLLECTION);
-    console.log("Collection is:", postCollection);
+    const previousRecord = await postCollection.find({ buid: record.buid });
 
-    const res = await postCollection.insertOne({ ...record });
+    if (previousRecord) {
+      // if there is previous record about this student, then increment its totalAttendance by 1
+      // source: https://www.mongodb.com/docs/manual/reference/method/db.collection.findOneAndUpdate/
+      const updated = await postCollection.findOneAndUpdate(
+        { buid: record.buid },
+        { $inc: { totalAttendance: 1 } },
+        { returnDocument: "after" } // returns the updated document.
+      );
 
-    return NextResponse.json({ success: true, record });
+      console.log("Just Updated the Record: " + updated);
+
+      return NextResponse.json({ success: true, record: updated });
+    } else {
+      // 如果是第一次签到，插入新记录
+      const res = await postCollection.insertOne(record);
+      console.log("Just Inserted a New Record: ");
+
+      return NextResponse.json({ success: true, record });
+    }
   } catch (err) {
     console.error("Error:", err);
     return NextResponse.json(
