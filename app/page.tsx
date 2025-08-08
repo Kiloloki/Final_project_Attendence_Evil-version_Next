@@ -1,5 +1,6 @@
 // Author: Emily Yang (eyang4@bu.edu), ZL(lzhx@bu.edu)
-// Description: The home page. 
+// Description: The home page. Direct to this page to perform IP check.
+
 'use client'
 
 import IPCheck from "@/components/IPCheck";

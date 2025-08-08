@@ -1,5 +1,5 @@
 // created by ZL(lzhx@bu.edu), to check if ip is fetched and is correct
-// last updated by ZL, to fix the repidity of useEffect function and that ip is not awaited to be fetched
+// last updated by ZL, to fix the repetition of useEffect function and that ip is not awaited to be fetched
 
 'use client'
 
@@ -14,7 +14,8 @@ export default function IPCheck() {
 
     useEffect(() => {
         async function fetchIPMatch() {
-            try {// fetch User's current IP from IPify
+            try {
+                // fetch User's current IP from IPify
                 const responseIP = await fetch("https://api.ipify.org/?format=json");
                 const { ip } = await responseIP.json();
                 const dataIP = ip;
@@ -112,6 +113,7 @@ export default function IPCheck() {
     );
 }
 
+// previous version code
 /*
 import getIP from "@/lib/getIP";
 
